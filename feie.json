@@ -6,17 +6,41 @@
   "form": "IRS Form 2555",
   "latestYear": 2026,
   "years": [
-    {"year": 2026, "limit": 132900, "days": 365},
-    {"year": 2025, "limit": 130000, "days": 365},
-    {"year": 2024, "limit": 126500, "days": 366},
-    {"year": 2023, "limit": 120000, "days": 365},
-    {"year": 2022, "limit": 112000, "days": 365}
+    {
+      "year": 2026,
+      "limit": 132900,
+      "days": 365
+    },
+    {
+      "year": 2025,
+      "limit": 130000,
+      "days": 365
+    },
+    {
+      "year": 2024,
+      "limit": 126500,
+      "days": 366
+    },
+    {
+      "year": 2023,
+      "limit": 120000,
+      "days": 365
+    },
+    {
+      "year": 2022,
+      "limit": 112000,
+      "days": 365
+    }
   ],
   "source": {
     "authority": "Internal Revenue Service",
     "url": "https://www.irs.gov/individuals/international-taxpayers/figuring-the-foreign-earned-income-exclusion",
     "status": "github-pages-verified",
-    "liveRule": {"year": 2026, "limit": 132900, "days": 365}
+    "liveRule": {
+      "year": 2026,
+      "limit": 132900,
+      "days": 365
+    }
   },
   "safety": {
     "fallbackAvailable": true,
@@ -24,13 +48,14 @@
     "lawChangeBehavior": "pause-and-review",
     "validation": "Annual ceilings are accepted only from the IRS page after Section 911 passes the law guard."
   },
-  "checkedAt": "2026-08-15T00:00:00Z",
+  "checkedAt": "2026-08-14T23:55:21Z",
   "law": {
     "authority": "Office of the Law Revision Counsel, U.S. House of Representatives",
     "section": "26 U.S.C. § 911",
     "url": "https://uscode.house.gov/view.xhtml?req=(title:26%20section:911%20edition:prelim)",
     "status": "current",
-    "sectionTextSha256": null,
-    "baselineNote": "Initial hash is recorded on first successful scheduled verification; subsequent operative-text changes trigger review-required."
+    "sectionTextSha256": "ae1022bb3367518e7cbaba74b2b2af2bc520a80a165e55ba31148b096d085001",
+    "baselineNote": "Initial hash is recorded on first successful scheduled verification; subsequent operative-text changes trigger review-required.",
+    "checkedAt": "2026-08-14T23:55:21Z"
   }
 }
