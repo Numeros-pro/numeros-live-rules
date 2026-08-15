@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "product": "Numeros Live Rules",
+  "rule": "us-self-employment-tax",
+  "jurisdiction": "US-FEDERAL",
+  "form": "Schedule SE (Form 1040)",
+  "latestYear": 2026,
+  "current": {
+    "year": 2026,
+    "netEarningsFactor": 0.9235,
+    "minimumNetEarnings": 400,
+    "socialSecurityRate": 0.124,
+    "medicareRate": 0.029,
+    "socialSecurityWageBase": 184500,
+    "additionalMedicareRate": 0.009,
+    "additionalMedicareThresholds": {
+      "joint": 250000,
+      "marriedSeparate": 125000,
+      "other": 200000
+    },
+    "halfSETaxDeductionFactor": 0.5
+  },
+  "history": [
+    {"year": 2022, "socialSecurityWageBase": 147000},
+    {"year": 2023, "socialSecurityWageBase": 160200},
+    {"year": 2024, "socialSecurityWageBase": 168600},
+    {"year": 2025, "socialSecurityWageBase": 176100},
+    {"year": 2026, "socialSecurityWageBase": 184500}
+  ],
+  "sources": {
+    "ssaWageBase": "https://www.ssa.gov/OACT/cola/cbb.html",
+    "irsTopic554": "https://www.irs.gov/taxtopics/tc554",
+    "irsPublication505": "https://www.irs.gov/publications/p505",
+    "law1401": "https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title26-section1401",
+    "law1402": "https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title26-section1402"
+  },
+  "sourceStatus": "verified",
+  "safety": {
+    "fallbackAvailable": true,
+    "neverGuessUnknownYear": true,
+    "lawChangeBehavior": "pause-and-review",
+    "annualAutoUpdate": "socialSecurityWageBase only",
+    "coreFormulaAutoRewrite": false
+  },
+  "law": {
+    "status": "current",
+    "guard": "26 U.S.C. §§ 1401 and 1402 core-rule signature",
+    "signatureSha256": null,
+    "baselineNote": "Initial signature is recorded on first successful workflow run. A core-rule change switches status to review-required."
+  },
+  "checkedAt": "2026-08-15T00:00:00Z"
+}
