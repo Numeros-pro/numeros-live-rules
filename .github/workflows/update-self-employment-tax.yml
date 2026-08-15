@@ -2,6 +2,11 @@ name: Update Self-Employment Tax rules
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_self_employment_tax.py'
+      - '.github/workflows/update-self-employment-tax.yml'
   schedule:
     - cron: '41 4 * * 3'
 
