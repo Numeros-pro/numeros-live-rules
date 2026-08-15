@@ -30,6 +30,7 @@
   "sources": {
     "ssaWageBase": "https://www.ssa.gov/OACT/cola/cbb.html",
     "irsTopic554": "https://www.irs.gov/taxtopics/tc554",
+    "irsTopic560": "https://www.irs.gov/taxtopics/tc560",
     "irsPublication505": "https://www.irs.gov/publications/p505",
     "law1401": "https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title26-section1401",
     "law1402": "https://uscode.house.gov/view.xhtml?edition=prelim&req=granuleid%3AUSC-prelim-title26-section1402"
@@ -44,9 +45,9 @@
   },
   "law": {
     "status": "current",
-    "guard": "26 U.S.C. §§ 1401 and 1402 core-rule signature",
+    "guard": "26 U.S.C. §§ 1401 and 1402 operative-text fingerprint plus IRS rule markers",
     "signatureSha256": null,
-    "baselineNote": "Initial signature is recorded on first successful workflow run. A core-rule change switches status to review-required."
+    "baselineNote": "Initial signature is recorded on first successful workflow run. A statutory text change or missing core IRS marker switches status to review-required."
   },
   "checkedAt": "2026-08-15T00:00:00Z"
 }
