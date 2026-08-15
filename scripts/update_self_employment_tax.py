@@ -19,7 +19,10 @@ class TextExtractor(HTMLParser):
         self.parts.append(data)
 
 def fetch_text(url):
-    req = Request(url, headers={'User-Agent':'NumerosLiveRules/1.0 (+https://www.numeros.pro/)'})
+    req = Request(url, headers={
+        'User-Agent':'Mozilla/5.0 NumerosLiveRules/1.0 (+https://www.numeros.pro/)',
+        'Accept':'text/html,application/xhtml+xml'
+    })
     with urlopen(req, timeout=35) as r:
         raw = r.read().decode('utf-8', 'replace')
     p = TextExtractor(); p.feed(raw)
@@ -29,8 +32,6 @@ def money_int(s):
     return int(re.sub(r'[^0-9]', '', s))
 
 def extract_ssa_bases(text):
-    # The SSA Contribution and Benefit Base page is the authoritative current-law table.
-    # Restrict to modern years and plausible current-law amounts.
     found = {}
     for year_s, amount_s in re.findall(r'\b(20\d{2})\b\s+\$?([0-9]{2,3}(?:,[0-9]{3})+)', text):
         year = int(year_s); amount = money_int(amount_s)
@@ -38,8 +39,25 @@ def extract_ssa_bases(text):
             found[year] = amount
     return found
 
+def extract_irs505_current_base(text):
+    # Pub. 505 current-year worksheet states both the worksheet year and the maximum
+    # income subject to Social Security tax. This is the official fallback when SSA
+    # blocks automated GitHub runner requests.
+    years = [int(y) for y in re.findall(r'Worksheet 2-3\.\s*(20\d{2})|Worksheet 2-3\.(20\d{2})', text) for y in y if y]
+    current_year = max(years) if years else datetime.now(timezone.utc).year
+    patterns = [
+        r'Maximum income subject to social security tax.{0,160}?\$\s*([0-9]{2,3}(?:,[0-9]{3})+)',
+        r'Maximum income subject to Social Security tax.{0,160}?\$\s*([0-9]{2,3}(?:,[0-9]{3})+)',
+    ]
+    for pattern in patterns:
+        m = re.search(pattern, text, re.I)
+        if m:
+            amount = money_int(m.group(1))
+            if 100000 <= amount <= 500000:
+                return current_year, amount
+    raise RuntimeError('Could not verify current Social Security wage base from IRS Publication 505')
+
 def section_core(text, section_number):
-    # Hash the operative statutory text, not navigation or amendment/source-credit material.
     patterns = [f'§{section_number}.', f'§ {section_number}.', f'{section_number}.']
     start = -1
     for marker in patterns:
@@ -81,7 +99,6 @@ def validate_core_markers(law1401, law1402, irs505, irs560):
         raise RuntimeError('Core-rule marker verification failed: ' + ', '.join(missing))
 
 def law_signature(law1401, law1402):
-    # Any change in the operative statutory text for Sections 1401/1402 changes this fingerprint.
     core1401 = section_core(law1401, '1401')
     core1402 = section_core(law1402, '1402')
     canonical = '26-USC-1401\n' + core1401 + '\n26-USC-1402\n' + core1402
@@ -123,15 +140,26 @@ def main():
     data['law'].pop('reason', None)
     data['law'].pop('currentSignatureSha256', None)
 
-    ssa = fetch_text(SSA_URL)
-    bases = extract_ssa_bases(ssa)
-    if not bases:
-        raise SystemExit('Safety stop: no plausible SSA wage-base values detected; existing data preserved.')
-
-    latest_year = max(bases)
-    latest_base = bases[latest_year]
     history = {int(x['year']): int(x['socialSecurityWageBase']) for x in data.get('history', [])}
-    history.update(bases)
+    wage_base_source = None
+    latest_year = None
+    latest_base = None
+
+    try:
+        ssa = fetch_text(SSA_URL)
+        bases = extract_ssa_bases(ssa)
+        if bases:
+            history.update(bases)
+            latest_year = max(bases)
+            latest_base = bases[latest_year]
+            wage_base_source = 'SSA Contribution and Benefit Base'
+    except Exception as exc:
+        print(f'SSA fetch unavailable ({exc}); verifying wage base from IRS Publication 505 instead.')
+
+    if latest_base is None:
+        latest_year, latest_base = extract_irs505_current_base(irs505)
+        history[latest_year] = latest_base
+        wage_base_source = 'IRS Publication 505 fallback'
 
     data['latestYear'] = latest_year
     data['current']['year'] = latest_year
@@ -142,9 +170,10 @@ def main():
         if y >= 2022
     ]
     data['sourceStatus'] = 'verified'
+    data['wageBaseSourceUsed'] = wage_base_source
     data['checkedAt'] = now_iso
     OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
-    print(f'Law current; latest SSA wage base: {latest_year} ${latest_base:,}')
+    print(f'Law current; latest wage base: {latest_year} ${latest_base:,} via {wage_base_source}')
 
 if __name__ == '__main__':
     main()
