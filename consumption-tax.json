@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "product": "Numeros Live Rules",
+  "rule": "consumption-tax-standard-rates",
+  "status": "verified",
+  "checkedAt": "2026-08-15T02:45:00Z",
+  "countries": {
+    "SA": {
+      "name": "Saudi Arabia",
+      "taxName": "VAT",
+      "currency": "SAR",
+      "standardRate": 15,
+      "note": "Standard VAT rate for taxable supplies; zero-rated and exempt cases can apply.",
+      "source": "https://zatca.gov.sa/ar/rulesregulations/vat/pages/about-vat.aspx"
+    },
+    "AE": {
+      "name": "United Arab Emirates",
+      "taxName": "VAT",
+      "currency": "AED",
+      "standardRate": 5,
+      "note": "Standard VAT rate; zero-rated and exempt supplies can apply.",
+      "source": "https://tax.gov.ae/en/faq.aspx?keyword=What+is+the+standard+rate+of+VAT+in+the+UAE%3F"
+    },
+    "GB": {
+      "name": "United Kingdom",
+      "taxName": "VAT",
+      "currency": "GBP",
+      "standardRate": 20,
+      "note": "Standard VAT rate; reduced, zero-rated and exempt categories can apply.",
+      "source": "https://www.gov.uk/vat-rates"
+    },
+    "AU": {
+      "name": "Australia",
+      "taxName": "GST",
+      "currency": "AUD",
+      "standardRate": 10,
+      "note": "Standard GST rate on most taxable supplies.",
+      "source": "https://www.ato.gov.au/about-ato/research-and-statistics/in-detail/tax-gap/a-h-tax-gaps/goods-and-services-tax-gap/overview"
+    },
+    "NZ": {
+      "name": "New Zealand",
+      "taxName": "GST",
+      "currency": "NZD",
+      "standardRate": 15,
+      "note": "Standard GST rate on most taxable supplies.",
+      "source": "https://www.ird.govt.nz/gst/what-gst-is"
+    },
+    "SG": {
+      "name": "Singapore",
+      "taxName": "GST",
+      "currency": "SGD",
+      "standardRate": 9,
+      "note": "Prevailing GST rate; zero-rated and exempt supplies can apply.",
+      "source": "https://www.iras.gov.sg/quick-links/tax-rates/goods-and-services-tax-%28gst%29-rates"
+    },
+    "JP": {
+      "name": "Japan",
+      "taxName": "Consumption Tax",
+      "currency": "JPY",
+      "standardRate": 10,
+      "reducedRate": 8,
+      "note": "Standard consumption-tax rate; a reduced 8% rate applies to qualifying items.",
+      "source": "https://www.nta.go.jp/english/taxes/consumption_tax/01.htm"
+    },
+    "US": {
+      "name": "United States",
+      "taxName": "Sales Tax",
+      "currency": "USD",
+      "manual": true,
+      "note": "No single national sales-tax rate. State, local and product-taxability rules determine the applicable combined rate."
+    },
+    "CA": {
+      "name": "Canada",
+      "taxName": "GST/HST/PST",
+      "currency": "CAD",
+      "region": true,
+      "note": "Province and territory profiles use CRA-listed standard GST/HST and PST rates; taxability and place-of-supply rules still matter.",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html"
+    }
+  },
+  "canada": {
+    "source": "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/charge-collect-which-rate/calculator.html",
+    "regions": {
+      "AB": {"name": "Alberta", "primary": 5, "secondary": 0},
+      "BC": {"name": "British Columbia", "primary": 5, "secondary": 7},
+      "MB": {"name": "Manitoba", "primary": 5, "secondary": 7},
+      "NB": {"name": "New Brunswick", "primary": 15, "secondary": 0},
+      "NL": {"name": "Newfoundland and Labrador", "primary": 15, "secondary": 0},
+      "NT": {"name": "Northwest Territories", "primary": 5, "secondary": 0},
+      "NS": {"name": "Nova Scotia", "primary": 14, "secondary": 0},
+      "NU": {"name": "Nunavut", "primary": 5, "secondary": 0},
+      "ON": {"name": "Ontario", "primary": 13, "secondary": 0},
+      "PE": {"name": "Prince Edward Island", "primary": 15, "secondary": 0},
+      "QC": {"name": "Quebec", "primary": 5, "secondary": 9.975},
+      "SK": {"name": "Saskatchewan", "primary": 5, "secondary": 6},
+      "YT": {"name": "Yukon", "primary": 5, "secondary": 0}
+    }
+  },
+  "safety": {
+    "standardRateOnly": true,
+    "manualOverride": true,
+    "browserCountryIsSuggestionOnly": true,
+    "neverInferProductTaxability": true,
+    "neverInferUSLocalRate": true
+  }
+}
