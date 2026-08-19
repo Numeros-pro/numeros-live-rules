@@ -63,8 +63,8 @@
     "guard": "26 U.S.C. §§ 1401 and 1402 operative-text fingerprint plus IRS rule markers",
     "signatureSha256": "8377d3549d0674033e2160f353045de809990c62d9ca035c1f2106d93ca5e48f",
     "baselineNote": "Initial signature is recorded on first successful workflow run. A statutory text change or missing core IRS marker switches status to review-required.",
-    "checkedAt": "2026-08-15T00:51:51Z"
+    "checkedAt": "2026-08-19T05:59:40Z"
   },
-  "checkedAt": "2026-08-15T00:51:51Z",
+  "checkedAt": "2026-08-19T05:59:40Z",
   "wageBaseSourceUsed": "IRS Publication 505 fallback"
 }
